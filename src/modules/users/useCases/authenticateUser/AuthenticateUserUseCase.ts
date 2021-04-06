@@ -40,11 +40,6 @@ export class AuthenticateUserUseCase {
       expiresIn,
     });
 
-    // const token = sign({user}, "6f1966943d891270f770cbbe8eac4074", {
-    //   subject: user.id,
-    //   expiresIn: "1d",
-    // });
-
     return {
       user: {
         id: user.id,
