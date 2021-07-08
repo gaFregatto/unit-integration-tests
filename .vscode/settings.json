@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "postgres",
-        "senhasupersecreta"
+        "senhasupersecreta",
+        "typeorm"
     ]
 }
