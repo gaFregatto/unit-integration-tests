@@ -63,5 +63,32 @@ describe("Create Statement", () => {
         description: "Insufficient funds test"
       })
     }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);
+  });
+
+  it("Should be able to create a transfer statement", async () => {
+    const user = await createUserUseCase.execute({
+      name: "User test",
+      email: "user@test.com.br",
+      password: "1234",
+    });
+    await createStatementUseCase.execute({
+      user_id: user.id,
+      type: OperationType.DEPOSIT,
+      amount: 100,
+      description: "Deposit test"
+    });
+    const receiver = await createUserUseCase.execute({
+      name: "receiver test",
+      email: "receiver@test.com.br",
+      password: "4321",
+    });
+    const statement = await createStatementUseCase.execute({
+      user_id: user.id,
+      receiver_id: receiver.id,
+      type: OperationType.TRANSFER,
+      amount: 50,
+      description: "transfer test"
+    });
+    expect(statement).toHaveProperty("id");
   })
 })
