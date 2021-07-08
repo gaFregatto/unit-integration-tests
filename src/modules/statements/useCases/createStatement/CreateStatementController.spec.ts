@@ -60,6 +60,18 @@ describe("Create Statement Controller", () => {
     expect(res.body).toHaveProperty("type");
     expect(res.body.type).toBe("withdraw");
   });
+  
+  it("Should be able to create s transfer statement", async () => {
+    const res = await request(app).post("api/v1/statements/transfer/:receiver_id").send({
+      amount: 100,
+      description: "Transfer statement"
+    }).set({
+      Authorization: `Bearer ${token}`
+    });
+    expect(res.status).toBe(201);
+    expect(res.body).toHaveProperty("type");
+    expect(res.body.type).toBe("transfer");
+  })
 
   it("Should not be able to create a withdraw statement when funds are insufficient", async () => {
     const res = await request(app).post('/api/v1/statements/withdraw')
